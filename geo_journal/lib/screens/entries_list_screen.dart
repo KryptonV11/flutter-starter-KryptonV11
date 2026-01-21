@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/journal_provider.dart';
+import 'package:geo_journal/providers/journal_provider.dart';
 
 class EntriesListScreen extends StatefulWidget {
   const EntriesListScreen({super.key});
@@ -13,9 +13,11 @@ class _EntriesListScreenState extends State<EntriesListScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<JournalProvider>().loadEntries();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<JournalProvider>().loadEntries();
+    });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     final p = context.watch<JournalProvider>();
@@ -41,6 +43,7 @@ class _EntriesListScreenState extends State<EntriesListScreen> {
             if (p.isLoading && p.entries.isEmpty) {
               return const Center(child: CircularProgressIndicator());
             }
+
             if (p.error != null && p.entries.isEmpty) {
               return ListView(
                 children: [
@@ -56,6 +59,7 @@ class _EntriesListScreenState extends State<EntriesListScreen> {
                 ],
               );
             }
+
             if (p.entries.isEmpty) {
               return ListView(
                 children: const [
@@ -73,13 +77,15 @@ class _EntriesListScreenState extends State<EntriesListScreen> {
                 return ListTile(
                   title: Text(e.title),
                   subtitle: Text(
-                    e.lat != null ? 'Место: ${e.lat!.toStringAsFixed(5)}, ${e.lng!.toStringAsFixed(5)}' : 'Место: не указано',
+                    (e.lat != null && e.lng != null)
+                        ? 'Место: ${e.lat!.toStringAsFixed(5)}, ${e.lng!.toStringAsFixed(5)}'
+                        : 'Место: не указано',
                   ),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => Navigator.pushNamed(
                     context,
                     '/detail',
-                    arguments: e.id, // передаём ID
+                    arguments: e.id,
                   ),
                 );
               },
@@ -90,4 +96,3 @@ class _EntriesListScreenState extends State<EntriesListScreen> {
     );
   }
 }
-

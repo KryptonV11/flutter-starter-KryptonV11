@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/theme_provider.dart';
+import 'package:geo_journal/providers/theme_provider.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -17,7 +17,7 @@ class SettingsScreen extends StatelessWidget {
             title: const Text('Dark Mode'),
             trailing: Switch(
               value: themeProvider.isDark,
-              onChanged: (_) => themeProvider.toggleTheme(),
+              onChanged: (_) => themeProvider.toggle,
             ),
           ),
         ],

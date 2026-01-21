@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'providers/journal_provider.dart';
-import 'providers/theme_provider.dart';
-import 'services/api_service.dart';
+import 'package:geo_journal/providers/journal_provider.dart';
+import 'package:geo_journal/providers/theme_provider.dart';
+import 'package:geo_journal/services/api_service.dart';
 
-import 'screens/entries_list_screen.dart';
-import 'screens/entry_detail_screen.dart';
-import 'screens/add_entry_screen.dart';
-import 'screens/settings_screen.dart';
+import 'package:geo_journal/screens/entries_list_screen.dart';
+import 'package:geo_journal/screens/entry_detail_screen.dart';
+import 'package:geo_journal/screens/add_entry_screen.dart';
+import 'package:geo_journal/screens/settings_screen.dart';
 
 void main() {
   runApp(
@@ -37,10 +37,10 @@ class MyApp extends StatelessWidget {
       themeMode: themeProvider.isDark ? ThemeMode.dark : ThemeMode.light,
       initialRoute: '/',
       routes: {
-        '/': (_) => EntriesListScreen(),
-        '/detail': (_) => EntryDetailScreen(),
-        '/add': (_) => AddEntryScreen(),
-        '/settings': (_) => SettingsScreen(),
+        '/': (_) => const EntriesListScreen(),
+        '/detail': (_) => const EntryDetailScreen(),
+        '/add': (_) => const AddEntryScreen(),
+        '/settings': (_) => const SettingsScreen(),
       },
     );
   }
